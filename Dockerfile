@@ -29,6 +29,11 @@ RUN COMPOSER_ALLOW_SUPERUSER=1 composer install \
     --optimize-autoloader \
     --no-scripts
 
+RUN php artisan package:discover --ansi \
+    && php artisan vendor:publish --tag=laravel-assets --force \
+    && php artisan vendor:publish --tag=cachet-assets --force \
+    && php artisan filament:assets
+
 # Dossiers Laravel
 RUN mkdir -p \
     storage/app/public \
